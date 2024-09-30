@@ -36,8 +36,6 @@ const columns = [
 const ExpandedComponent = ({ data }) => (
   <div style={{ padding: '10px', backgroundColor: '#f0f0f0' }}>
     <p><strong>Synopsis:</strong> {`This is a detailed synopsis of the book ${data.title}.`}</p>
-    <p><strong>Published:</strong> {data.year}</p>
-    <p><strong>ISBN:</strong> {data.isbn}</p>
   </div>
 );
 
@@ -51,7 +49,7 @@ const conditionalRowStyles = [
   {
     when: row => row.pages > 250, 
     style: {
-      backgroundColor: '#ffcdd2',
+      backgroundColor: '#e9d8a6',
     },
   },
 ];

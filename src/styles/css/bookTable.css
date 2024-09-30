@@ -1,32 +1,33 @@
 .rdt_TableHead {
-  background-color: #8a0000;
-  color: #333;
+  background-color: #4a4e69;
+  color: #f2e9e4;
   font-weight: bold;
   text-align: left;
   padding: 10px;
+  border-bottom: 2px solid #9a8c98;
 }
 
 .rdt_TableHeadRow {
-  background-color: aqua;
+  background-color: #22223b;
 }
+
 .rdt_TableCol {
-  padding: 10px;
-  border-bottom: 2px solid #ddd;
-  background-color: yellow;
+  padding: 12px;
+  border-bottom: 2px solid #c9ada7;
+  background-color: #9a8c98;
+  color: #f2e9e4;
 }
 
 .rdt_TableRow {
-  background-color: #fff;
+  background-color: #f2e9e4;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-.rdt_TableRow:nth-child(even) {
-  background-color: #f9f9f9;
+  border-bottom: 1px solid #c9ada7;
 }
 
 .rdt_TableCell {
-  padding: 10px;
+  padding: 12px;
   text-align: left;
+  color: #4a4e69;
 }
 
 .loading-container {
@@ -37,8 +38,8 @@
 }
 
 .spinner {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border: 16px solid #e9d8a6;
+  border-top: 16px solid #4a4e69;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -52,4 +53,23 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.rdt_Pagination {
+  background-color: #4a4e69;
+  color: #f2e9e4;
+}
+
+.rdt_Pagination button {
+  background-color: #9a8c98;
+  color: #f2e9e4;
+  border: none;
+  padding: 8px 16px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.rdt_Pagination button:hover {
+  background-color: #22223b;
 }
