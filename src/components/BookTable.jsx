@@ -35,12 +35,26 @@ const columns = [
 
 const BookTable = () => {
   const [loading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState(''); 
+  const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
+
+
+  useEffect(() => {
+    const filtered = books.filter((book) =>
+      Object.values(book).some(
+        (value) =>
+          value &&
+          value.toString().toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+    setFilteredBooks(filtered);
+  }, [searchText]);
 
   if (loading) {
     return (
@@ -51,14 +65,23 @@ const BookTable = () => {
   }
 
   return (
-    <DataTable
-      columns={columns}
-      data={books}
-      pagination
-      paginationPerPage={7}
-      selectableRows
-      fixedHeader
-    />
+    <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
+      />
+      <DataTable
+        columns={columns}
+        data={filteredBooks} 
+        pagination
+        paginationPerPage={7}
+        selectableRows
+        fixedHeader
+      />
+    </div>
   );
 };
 
