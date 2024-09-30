@@ -35,16 +35,17 @@ const columns = [
 
 const BookTable = () => {
   const [loading, setLoading] = useState(true);
-  const [searchText, setSearchText] = useState(''); 
+  const [searchText, setSearchText] = useState('');
   const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
+    // Simular el tiempo de carga
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
 
-
+  // Filtrar libros en base al texto de búsqueda
   useEffect(() => {
     const filtered = books.filter((book) =>
       Object.values(book).some(
@@ -60,6 +61,7 @@ const BookTable = () => {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
+        <p>Loading table...</p>
       </div>
     );
   }
@@ -75,10 +77,11 @@ const BookTable = () => {
       />
       <DataTable
         columns={columns}
-        data={filteredBooks} 
+        data={filteredBooks}
         pagination
         paginationPerPage={7}
         selectableRows
+        selectableRowDisabled={row => [3, 5, 9].includes(row.id)} // Deshabilitar selección para filas 3, 5 y 9
         fixedHeader
       />
     </div>
