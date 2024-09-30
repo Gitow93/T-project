@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import books from '../assets/books.json';
+import books from '../assets/books.json'; 
 import '../styles/css/bookTable.css';
 
 
@@ -33,6 +33,7 @@ const columns = [
   },
 ];
 
+
 const ExpandedComponent = ({ data }) => (
   <div style={{ padding: '10px', backgroundColor: '#f0f0f0' }}>
     <p><strong>Synopsis:</strong> {`This is a detailed synopsis of the book ${data.title}.`}</p>
@@ -40,6 +41,7 @@ const ExpandedComponent = ({ data }) => (
     <p><strong>ISBN:</strong> {data.isbn}</p>
   </div>
 );
+
 
 const conditionalRowStyles = [
   {
@@ -49,7 +51,7 @@ const conditionalRowStyles = [
     },
   },
   {
-    when: row => row.pages > 250, 
+    when: row => row.pages > 250,
     style: {
       backgroundColor: '#ffcdd2', 
     },
@@ -57,7 +59,7 @@ const conditionalRowStyles = [
 ];
 
 
-const isRowEven = row => row.id % 2 === 0;
+const isRowEvenAndExpandable = row => row.id % 2 === 0 && ![4, 6].includes(row.id);
 
 const BookTable = () => {
   const [loading, setLoading] = useState(true);
@@ -65,6 +67,7 @@ const BookTable = () => {
   const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
+
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -109,7 +112,7 @@ const BookTable = () => {
         selectableRowSelected={row => [1, 7, 10].includes(row.id)} 
         conditionalRowStyles={conditionalRowStyles} 
         expandableRows 
-        expandableRowDisabled={row => !isRowEven(row)} 
+        expandableRowDisabled={row => !isRowEvenAndExpandable(row)}
         expandableRowsComponent={({ data }) => <ExpandedComponent data={data} />} 
         onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
         fixedHeader
