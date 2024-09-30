@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import books from '../assets/books.json'; 
+import books from '../assets/books.json';
 import '../styles/css/bookTable.css';
+
 
 const columns = [
   {
@@ -54,6 +55,7 @@ const BookTable = () => {
       columns={columns}
       data={books}
       pagination
+      paginationPerPage={7}
       selectableRows
       fixedHeader
     />
