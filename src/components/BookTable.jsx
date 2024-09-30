@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import books from '../assets/books.json'; 
+import books from '../assets/books.json';
 import '../styles/css/bookTable.css';
+
 
 const columns = [
   {
@@ -31,9 +32,20 @@ const columns = [
     selector: row => row.isbn,
   },
 ];
-
-
-const rowSelectCriteria = row => [1, 7, 10].includes(row.id);
+const conditionalRowStyles = [
+  {
+    when: row => row.pages <= 250, 
+    style: {
+      backgroundColor: '#c8e6c9', 
+    },
+  },
+  {
+    when: row => row.pages > 250, 
+    style: {
+      backgroundColor: '#ffcdd2',
+    },
+  },
+];
 
 const BookTable = () => {
   const [loading, setLoading] = useState(true);
@@ -84,7 +96,8 @@ const BookTable = () => {
         paginationPerPage={7}
         selectableRows
         selectableRowDisabled={row => [3, 5, 9].includes(row.id)} 
-        selectableRowSelected={rowSelectCriteria}
+        selectableRowSelected={row => [1, 7, 10].includes(row.id)}
+        conditionalRowStyles={conditionalRowStyles}
         onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
         fixedHeader
       />
