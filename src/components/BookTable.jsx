@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import books from '../assets/books.json'; 
+import books from '../assets/books.json';
 import '../styles/css/bookTable.css';
 
 
@@ -33,7 +33,6 @@ const columns = [
   },
 ];
 
-
 const ExpandedComponent = ({ data }) => (
   <div style={{ padding: '10px', backgroundColor: '#f0f0f0' }}>
     <p><strong>Synopsis:</strong> {`This is a detailed synopsis of the book ${data.title}.`}</p>
@@ -42,24 +41,24 @@ const ExpandedComponent = ({ data }) => (
   </div>
 );
 
-
 const conditionalRowStyles = [
   {
-    when: row => row.pages <= 250,
+    when: row => row.pages <= 250, 
     style: {
-      backgroundColor: '#c8e6c9', 
+      backgroundColor: '#c8e6c9',
     },
   },
   {
-    when: row => row.pages > 250,
+    when: row => row.pages > 250, 
     style: {
-      backgroundColor: '#ffcdd2', 
+      backgroundColor: '#ffcdd2',
     },
   },
 ];
 
-
 const isRowEvenAndExpandable = row => row.id % 2 === 0 && ![4, 6].includes(row.id);
+
+const isRowExpandedByDefault = row => row.id === 2;
 
 const BookTable = () => {
   const [loading, setLoading] = useState(true);
@@ -67,7 +66,6 @@ const BookTable = () => {
   const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
-
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -108,12 +106,14 @@ const BookTable = () => {
         pagination
         paginationPerPage={7}
         selectableRows
-        selectableRowDisabled={row => [3, 5, 9].includes(row.id)} 
-        selectableRowSelected={row => [1, 7, 10].includes(row.id)} 
+        selectableRowDisabled={row => [3, 5, 9].includes(row.id)}
+        selectableRowSelected={row => [1, 7, 10].includes(row.id)}
         conditionalRowStyles={conditionalRowStyles} 
         expandableRows 
-        expandableRowDisabled={row => !isRowEvenAndExpandable(row)}
+        expandableRowDisabled={row => !isRowEvenAndExpandable(row)} 
+        expandableRowExpanded={isRowExpandedByDefault} 
         expandableRowsComponent={({ data }) => <ExpandedComponent data={data} />} 
+        striped={false} 
         onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
         fixedHeader
       />
