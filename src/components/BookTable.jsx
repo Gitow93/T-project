@@ -32,9 +32,18 @@ const columns = [
     selector: row => row.isbn,
   },
 ];
+
+const ExpandedComponent = ({ data }) => (
+  <div style={{ padding: '10px', backgroundColor: '#f0f0f0' }}>
+    <p><strong>Synopsis:</strong> {`This is a detailed synopsis of the book ${data.title}.`}</p>
+    <p><strong>Published:</strong> {data.year}</p>
+    <p><strong>ISBN:</strong> {data.isbn}</p>
+  </div>
+);
+
 const conditionalRowStyles = [
   {
-    when: row => row.pages <= 250, 
+    when: row => row.pages <= 250,
     style: {
       backgroundColor: '#c8e6c9', 
     },
@@ -42,10 +51,13 @@ const conditionalRowStyles = [
   {
     when: row => row.pages > 250, 
     style: {
-      backgroundColor: '#ffcdd2',
+      backgroundColor: '#ffcdd2', 
     },
   },
 ];
+
+
+const isRowEven = row => row.id % 2 === 0;
 
 const BookTable = () => {
   const [loading, setLoading] = useState(true);
@@ -53,12 +65,10 @@ const BookTable = () => {
   const [filteredBooks, setFilteredBooks] = useState(books);
 
   useEffect(() => {
-
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
-
 
   useEffect(() => {
     const filtered = books.filter((book) =>
@@ -96,8 +106,11 @@ const BookTable = () => {
         paginationPerPage={7}
         selectableRows
         selectableRowDisabled={row => [3, 5, 9].includes(row.id)} 
-        selectableRowSelected={row => [1, 7, 10].includes(row.id)}
-        conditionalRowStyles={conditionalRowStyles}
+        selectableRowSelected={row => [1, 7, 10].includes(row.id)} 
+        conditionalRowStyles={conditionalRowStyles} 
+        expandableRows 
+        expandableRowDisabled={row => !isRowEven(row)} 
+        expandableRowsComponent={({ data }) => <ExpandedComponent data={data} />} 
         onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
         fixedHeader
       />
